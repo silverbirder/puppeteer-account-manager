@@ -1,1 +1,1 @@
-# puppeteer-profile-manager
+# puppeteer-account-manager
