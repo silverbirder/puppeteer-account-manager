@@ -1,0 +1,22 @@
+{
+  "name": "puppeteer-account-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Silver-birder/puppeteer-account-manager.git"
+  },
+  "author": "silverbirder <silverbirder@gmail.com> (https://silver-birder.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Silver-birder/puppeteer-account-manager/issues"
+  },
+  "homepage": "https://github.com/Silver-birder/puppeteer-account-manager#readme",
+  "dependencies": {
+    "puppeteer": "^3.0.2"
+  }
+}
