@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "test": "jest",
-    "build": "rollup index.js --file bundle.js --format cjs"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,14 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^4.1.1",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
     "@types/puppeteer": "^2.0.1",
     "jest": "^26.0.1",
     "rollup": "^2.7.6",
     "ts-jest": "^25.4.0",
+    "tslib": "^1.11.2",
     "typescript": "^3.8.3"
   },
   "jest": {
