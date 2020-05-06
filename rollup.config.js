@@ -33,7 +33,14 @@ export default {
         include: 'src/**'
     },
     plugins: [
-        typescript({useTsconfigDeclarationDir: true}),
+        typescript({
+            useTsconfigDeclarationDir: true,
+            tsconfigOverride: {
+                compilerOptions: {
+                    module: "es2015"
+                }
+            }
+        }),
         commonjs(),
         resolve(),
         json(),

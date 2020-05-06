@@ -15,7 +15,7 @@
       "node",
       "jest"
     ],
-    "module": "ES2015",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
