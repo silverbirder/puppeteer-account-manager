@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rollup index.js --file bundle.js --format cjs"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,14 @@
   },
   "homepage": "https://github.com/Silver-birder/puppeteer-account-manager#readme",
   "dependencies": {
-    "puppeteer": "^3.0.2"
+    "inversify": "^5.0.1",
+    "puppeteer": "^3.0.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "jest": "^26.0.1",
+    "rollup": "^2.7.6",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   },
