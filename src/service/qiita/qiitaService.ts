@@ -18,6 +18,7 @@ class QiitaService implements IService {
                     await this.page.$eval('.btn-google-inverse', form => form.submit());
                     break;
             }
+            this.auth.page = this.page;
             await this.auth.dispatch();
 
             await this.page.goto('https://qiita.com/settings/account/custom_image');

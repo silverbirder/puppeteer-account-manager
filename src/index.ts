@@ -8,7 +8,7 @@ import * as puppeteer from "puppeteer";
 (async()=> {
     const browser: Browser = await puppeteer.launch();
     const page: Page = await browser.newPage();
-    await this.page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
+    await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
 
     const qiitaService: IService = new QiitaService();
     qiitaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});

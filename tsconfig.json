@@ -6,7 +6,6 @@
         "*"
       ]
     },
-    // ↓ @see https://github.com/inversify/InversifyJS
     "target": "es5",
     "lib": [
       "es6"
@@ -16,7 +15,7 @@
       "node",
       "jest"
     ],
-    "module": "commonjs",
+    "module": "ES2015",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
