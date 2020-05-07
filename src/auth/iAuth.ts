@@ -8,7 +8,7 @@ interface IAuth {
     password: string;
     page: Page;
 
-    dispatch(): void;
+    dispatch(): Promise<void>;
 }
 
 const AUTH_NAME = {

@@ -9,7 +9,7 @@ interface IService {
     account: IAccount
     page: Page
 
-    accountUpdate(): IServiceResponse
+    accountUpdate(): Promise<IServiceResponse>
 }
 
 interface IServiceResponse {
