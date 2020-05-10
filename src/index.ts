@@ -8,8 +8,8 @@ import {HatenaAccount} from "#/service/qiita/hatenaAccount";
 
 (async()=> {
     const profile = await profileRequest(process.env.GRAVATAR_EMAIL);
-    const downloadAvatarPath = path.join(__dirname, `../dist/`, `${profile.user}.png`);
-    await downloadAvatar(`${profile.thumbnailUrl}?s=250`, downloadAvatarPath);
+    const downloadAvatarSize500Path = path.join(__dirname, `../dist/`, `${profile.user}_500.png`);
+    await downloadAvatar(`${profile.thumbnailUrl}?s=500`, downloadAvatarSize500Path);
 
     const browser: Browser = await launch({headless: false});
 
@@ -21,7 +21,7 @@ import {HatenaAccount} from "#/service/qiita/hatenaAccount";
 
     const hatenaService: IService = new HatenaService();
     hatenaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    hatenaService.account = new HatenaAccount({avatar: downloadAvatarPath, introduction: profile.intro});
+    hatenaService.account = new HatenaAccount({avatar: downloadAvatarSize500Path, introduction: profile.intro});
     hatenaService.browser = browser;
     const response: IServiceResponse = await hatenaService.accountUpdate();
     await browser.close();
