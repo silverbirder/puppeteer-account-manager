@@ -42,7 +42,7 @@ const profileRequest = async (email: string): Promise<IProfile> => {
     }
 };
 
-const download = async (url, path) => {
+const downloadAvatar = async (url, path) => {
     await fetch(url).then(res => {
         if (!res.ok) {
             throw new Error(`unexpected response ${res.statusText}`);
@@ -51,4 +51,4 @@ const download = async (url, path) => {
     });
 };
 
-export {profileRequest, download}
+export {profileRequest, downloadAvatar}
