@@ -24,7 +24,6 @@
     "inversify": "^5.0.1",
     "node-fetch": "^2.6.0",
     "puppeteer": "^3.0.2",
-    "puppeteer-core": "^3.0.4",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
@@ -32,7 +31,6 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
     "@types/puppeteer": "^2.0.1",
-    "@types/puppeteer-core": "^2.0.0",
     "jest": "^26.0.1",
     "rollup": "^2.7.6",
     "rollup-plugin-commonjs": "^10.1.0",
