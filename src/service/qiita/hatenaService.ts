@@ -11,7 +11,7 @@ class HatenaService implements IService {
     browser: Browser;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const page = (await this.browser.pages())[0];
+        const page = await this.browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
 
         console.log(`🚀: page.goto(hatena/login)`);
@@ -26,8 +26,12 @@ class HatenaService implements IService {
                 this.auth.page = newPage;
                 break;
         }
-        await this.auth.dispatch();
-
+        const dialogMessage = await this.auth.page.$eval('body', item => {
+            return item.textContent;
+        });
+        if (!dialogMessage.toString().match('しばらくお待ちください')) {
+            await this.auth.dispatch();
+        }
         console.log(`🚀: page.goto(profile)`);
         await page.waitFor('#profile-image-profile', {visible: true});
         await page.click('#profile-image-profile');
