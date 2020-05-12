@@ -11,7 +11,7 @@ class QiitaService implements IService {
     browser: Browser;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const page = (await this.browser.pages())[0];
+        const page = await this.browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
         this.auth.page = page;
 
