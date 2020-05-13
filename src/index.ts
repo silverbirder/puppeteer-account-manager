@@ -1,10 +1,10 @@
 import {IService, IServiceResponse} from "#/service/iService";
 import {GoogleAuth} from "#/auth/googleAuth";
 import {Browser, launch} from "puppeteer";
-import {HatenaService} from "#/service/qiita/hatenaService";
+import {HatenaService} from "#/service/hatena/hatenaService";
 import {downloadAvatar, profileRequest} from "#/service/gravatar";
 import * as path from "path";
-import {HatenaAccount} from "#/service/qiita/hatenaAccount";
+import {HatenaAccount} from "#/service/hatena/hatenaAccount";
 import {QiitaService} from "#/service/qiita/qiitaService";
 import {QiitaAccount} from "#/service/qiita/qiitaAccount";
 
