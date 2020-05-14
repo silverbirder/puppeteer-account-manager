@@ -19,13 +19,6 @@ import {QiitaAccount} from "#/service/qiita/qiitaAccount";
 
     const browser: Browser = await launch({headless: false, slowMo: 50});
 
-    const qiitaService: IService = new QiitaService();
-    qiitaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    qiitaService.account = new QiitaAccount({avatar: downloadAvatarPath, introduction: profile.intro});
-    qiitaService.browser = browser;
-
-    const _1: IServiceResponse = await qiitaService.accountUpdate();
-
     const hatenaService: IService = new HatenaService();
     hatenaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
     hatenaService.account = new HatenaAccount({avatar: downloadAvatarSize500Path, introduction: profile.intro});
@@ -33,4 +26,11 @@ import {QiitaAccount} from "#/service/qiita/qiitaAccount";
 
     const _2: IServiceResponse = await hatenaService.accountUpdate();
     await browser.close();
+
+    const qiitaService: IService = new QiitaService();
+    qiitaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
+    qiitaService.account = new QiitaAccount({avatar: downloadAvatarPath, introduction: profile.intro});
+    qiitaService.browser = browser;
+
+    const _1: IServiceResponse = await qiitaService.accountUpdate();
 })();

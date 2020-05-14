@@ -26,12 +26,21 @@ class HatenaService implements IService {
                 this.auth.page = newPage;
                 break;
         }
-        const dialogMessage = await this.auth.page.$eval('body', item => {
-            return item.textContent;
+
+        // Wait is login ?
+        [...Array(6)].map(async () => {
+            await this.auth.page.waitFor(500);
+            if (this.auth.page.isClosed()) {
+                console.log(`🚀: already login.`);
+                delete this.auth.page;
+                return;
+            }
         });
-        if (!dialogMessage.toString().match('しばらくお待ちください')) {
+
+        if (this.auth.page) {
             await this.auth.dispatch();
         }
+
         console.log(`🚀: page.goto(profile)`);
         await page.waitFor('#profile-image-profile', {visible: true});
         await page.click('#profile-image-profile');
