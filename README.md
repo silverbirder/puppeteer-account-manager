@@ -20,7 +20,6 @@
     ・twitter
     ・facebook
     ・medium
-    ・line
     ・linkedin
     ・note
     ・dev.to
