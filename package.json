@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "secrethub run -- ts-node --files -r tsconfig-paths/register src/index.ts",
+    "dev": "ts-node --files -r tsconfig-paths/register src/index.ts",
     "build": "rollup -c",
-    "start": "secrethub run -- node dist/index.js",
+    "start": "node dist/index.js",
     "test": "jest"
   },
   "repository": {
