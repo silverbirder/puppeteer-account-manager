@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/Silver-birder/puppeteer-account-manager#readme",
   "dependencies": {
+    "@types/kdbxweb": "^1.2.0",
     "@types/node-fetch": "^2.5.7",
     "inversify": "^5.0.1",
+    "kdbxweb": "^1.0.0",
     "node-fetch": "^2.6.0",
     "puppeteer": "^3.0.2",
     "reflect-metadata": "^0.1.13"
