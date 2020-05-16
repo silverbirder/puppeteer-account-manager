@@ -1,14 +1,48 @@
 # puppeteer-account-manager
 
 ## TODO
+```
 ・認証情報管理の利用
-・クローリング処理内容ログ出力
-・リファクタリング（テスト、プロダクト）
-
+　　・envに認証情報を書く面倒さをなくしたい
+・リファクタリング
+　　・クローリング処理内容ログ出力
+　　・エラーハンドリング
+　　・テストコーディング
+　　・処理共通化・責任分離
+・対象サービスの追加
+    ・amazon
+    ・twitter
+    ・facebook
+    ・medium
+    ・line
+    ・linkedin
+    ・note
+    ・dev.to
+    ・google
+　　※ 自身が登録しているAuth以外はどうしたものか。
+　　　ex. HatenaはGoogle Authを使ってログインしているが、通常ログインのコードが必要か...?
+・画像更新以外も更新対象としたい
+　　・gravatarを情報源としたい
+　　　　・自己紹介文
+　　　　・住所
+　　　　・関連リンク (portfolioなど)
+・DockerコンテナをDeploy
+　　・ローカルマシンで動かし、ゆくゆくはDeployしたい
+```
 
 # Env
 ```bash
 $ export GRAVATAR_EMAIL=
 $ export GOOGLE_ID=
 $ export GOOGLE_PASSWORD=
+```
+
+# Develop
+```bash
+$ npm install
+// For dev
+$ npm run dev
+// For prod
+$ npm  run build
+$ npm run start
 ```
