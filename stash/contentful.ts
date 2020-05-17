@@ -1,15 +1,19 @@
 import * as contentful from 'contentful'
 import {Entry, Field} from "contentful";
+import * as util from "util";
+import {pipeline} from 'stream';
+import fetch from "node-fetch";
 
 const client = contentful.createClient({
     space: process.env.CONTENTFUL_SPACE,
     accessToken: process.env.CONTENTFUL_ACCESSTOKEN,
 });
+const streamPipeline = util.promisify(pipeline);
 
-(async () => {
-    const entry: Entry<any> = await client.getEntry('49eICvbFZwALhRg3W78OxG');
+const profileRequest = async (id: string): Promise<any> => {
+    const entry: Entry<any> = await client.getEntry(id);
     const fields: Field = entry.fields;
-    const profile = Object.entries(fields).map((field, _) => {
+    return Object.entries(fields).map((field, _) => {
         const keyName = field[0];
         const value = field[1];
         let returnValue = {name: keyName, value: undefined};
@@ -29,4 +33,15 @@ const client = contentful.createClient({
         }
         return returnValue;
     });
-})();
+};
+
+const downloadAvatar = async (url, path) => {
+    await fetch(url).then(res => {
+        if (!res.ok) {
+            throw new Error(`unexpected response ${res.statusText}`);
+        }
+        return streamPipeline(res.body, fs.createWriteStream(path));
+    });
+};
+
+export {profileRequest, downloadAvatar};
