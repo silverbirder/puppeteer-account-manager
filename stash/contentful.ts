@@ -9,25 +9,24 @@ const client = contentful.createClient({
 (async () => {
     const entry: Entry<any> = await client.getEntry('49eICvbFZwALhRg3W78OxG');
     const fields: Field = entry.fields;
-    for (let fieldsKey in fields) {
-        const fieldsValue = fields[fieldsKey];
-        switch (fieldsKey) {
-            case 'avatar':
-                console.log(`https:${fieldsValue.fields.file.url}`);
-                break;
-            case 'aboutMe':
-                const content = fieldsValue.content[0].content.map((data) => {
-                    if (data.hasOwnProperty('value')) {
-                        return data.value;
-                    } else {
-                        return data.content[0].value;
-                    }
-                });
-                console.log(content.join(''));
-                break;
-            default:
-                console.log(fieldsValue);
-                break;
+    const profile = Object.entries(fields).map((field, _) => {
+        const keyName = field[0];
+        const value = field[1];
+        let returnValue = {name: keyName, value: undefined};
+        if (value.hasOwnProperty('sys') && value.sys.type === 'Asset') {
+            // For Asset
+            returnValue.value = `https:${value.fields.file.url}`;
+        } else if (value.hasOwnProperty('nodeType') && value.nodeType === 'document') {
+            // For Rich Document
+            returnValue.value = value.content[0].content.map((content) => {
+                if (content.hasOwnProperty('value')) {
+                    return content.value;
+                }
+                return content.content[0].value;
+            }).join('');
+        } else {
+            returnValue.value = value;
         }
-    }
+        return returnValue;
+    });
 })();
