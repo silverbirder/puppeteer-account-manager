@@ -27,13 +27,13 @@ const newIContentProfile = (): IContentProfile => {
     };
 };
 
-const client = contentful.createClient({
-    space: process.env.CONTENTFUL_SPACE,
-    accessToken: process.env.CONTENTFUL_ACCESSTOKEN,
-});
 const streamPipeline = util.promisify(pipeline);
 
-const profileRequest = async (): Promise<IContentProfile> => {
+const profileRequest = async (space: string, accessToken: string): Promise<IContentProfile> => {
+    const client = contentful.createClient({
+        space: space,
+        accessToken: accessToken,
+    });
     const entryCollection: EntryCollection<IContentProfile> = await client.getEntries({
         content_type: 'profile',
         'fields.type': 'BASE',
@@ -76,4 +76,4 @@ const downloadAvatar = async (url, path) => {
     });
 };
 
-export {profileRequest, downloadAvatar};
+export {profileRequest, downloadAvatar, IContentProfile};

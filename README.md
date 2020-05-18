@@ -33,13 +33,15 @@
 　　　　・関連リンク (portfolioなど)
 　　　　-> avatarの画質が固定されていて(サイズ可変できるが)、サービスによっては使えなかった。
 　　　　　-> もっと柔軟に対応できるよう、Contentful APIを使ってみたい。
+・シークレットウィンドウで開いて、全サービス並列で動かしたい
 ・DockerコンテナをDeploy
 　　・ローカルマシンで動かし、ゆくゆくはDeployしたい
 ```
 
 # Env
 ```bash
-$ export GRAVATAR_EMAIL=
+$ export CONTENTFUL_ACCESSTOKEN=
+$ export CONTENTFUL_SPACE=
 $ export GOOGLE_ID=
 $ export GOOGLE_PASSWORD=
 ```
