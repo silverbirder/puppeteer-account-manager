@@ -10,7 +10,7 @@ class MediumService implements IService {
     auth: IAuth;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const browser: Browser = await launch({headless: false, slowMo: 50, args: ['--incognito']});
+        const browser: Browser = await launch({headless: false, args: ['--incognito']});
         const page = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
 
@@ -28,21 +28,21 @@ class MediumService implements IService {
 
         console.log(`🚀: page.goto(Profile)`);
         await page.waitForNavigation();
-        await page.waitFor('button[data-action="open-userActions"]', {visible: true});
+        await page.waitFor('button[data-action="open-userActions"]');
         await page.click('button[data-action="open-userActions"]');
-        await page.waitForXPath('//a[text()="Profile"]', {visible: true});
+        await page.waitForXPath('//a[text()="Profile"]');
         await (await page.$x('//a[text()="Profile"]'))[0].click();
 
         console.log(`🚀: page.goto(EditProfile)`);
         await page.waitForNavigation();
-        await page.waitForXPath('//a[text()="Edit profile"]', {visible: true});
+        await page.waitForXPath('//a[text()="Edit profile"]');
         await (await page.$x('//a[text()="Edit profile"]'))[0].click();
 
         console.log(`🚀: page.goto(Upload image)`);
         await page.waitForNavigation();
-        await page.waitFor('.hero-avatarPicker', {visible: true});
+        await page.waitFor('.hero-avatarPicker');
         await page.click('.hero-avatarPicker');
-        await page.waitFor('input[type="file"]', {visible: true});
+        await page.waitFor('input[type="file"]');
         const input: ElementHandle = await page.$('input[type="file"]');
         await input.uploadFile(this.account.avatar);
 
