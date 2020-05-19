@@ -3,15 +3,15 @@
 import {IService, IServiceResponse} from "#/service/iService"
 import {IAccount} from "#/service/iAccount"
 import {AUTH_NAME, IAuth} from "#/auth/iAuth"
-import {Browser, ElementHandle} from "puppeteer";
+import {Browser, ElementHandle, launch} from "puppeteer";
 
 class HatenaService implements IService {
     account: IAccount;
     auth: IAuth;
-    browser: Browser;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const page = await this.browser.newPage();
+        const browser: Browser = await launch({headless: false, slowMo: 50, args: ['--incognito']});
+        const page = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
 
         console.log(`🚀: page.goto(hatena/login)`);
@@ -20,26 +20,13 @@ class HatenaService implements IService {
             case AUTH_NAME.GOOGLE:
                 await page.waitFor('#google-signin2-button', {visible: true});
                 const [newPage] = await Promise.all([
-                    this.browser.waitForTarget(t => t.opener() === page.target()).then(t => t.page()),
+                    browser.waitForTarget(t => t.opener() === page.target()).then(t => t.page()),
                     page.click('#google-signin2-button')
                 ]);
                 this.auth.page = newPage;
                 break;
         }
-
-        // Wait is login ?
-        [...Array(6)].map(async () => {
-            await this.auth.page.waitFor(500);
-            if (this.auth.page.isClosed()) {
-                console.log(`🚀: already login.`);
-                delete this.auth.page;
-                return;
-            }
-        });
-
-        if (this.auth.page) {
-            await this.auth.dispatch();
-        }
+        await this.auth.dispatch();
 
         console.log(`🚀: page.goto(profile)`);
         await page.waitFor('#profile-image-profile', {visible: true});
@@ -71,8 +58,9 @@ class HatenaService implements IService {
         console.log(`🚀: page.click submit`);
         await page.waitForSelector('input[type="submit"]', {visible: true});
         await page.click('input[type="submit"]');
-        await page.waitFor(1000);
+        await page.waitForNavigation();
 
+        await browser.close();
         return {status: 200}
     }
 }

@@ -3,15 +3,15 @@
 import {IService, IServiceResponse} from "#/service/iService"
 import {IAccount} from "#/service/iAccount"
 import {AUTH_NAME, IAuth} from "#/auth/iAuth"
-import {Browser, ElementHandle} from "puppeteer";
+import {Browser, ElementHandle, launch} from "puppeteer";
 
 class QiitaService implements IService {
     account: IAccount;
     auth: IAuth;
-    browser: Browser;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const page = await this.browser.newPage();
+        const browser: Browser = await launch({headless: false, slowMo: 50, args: ['--incognito']});
+        const page = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
         this.auth.page = page;
 
@@ -37,6 +37,7 @@ class QiitaService implements IService {
         await page.click('input[type="submit"]');
         await page.waitFor(1000);
 
+        await browser.close();
         return {status: 200}
     }
 }

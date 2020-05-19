@@ -3,15 +3,15 @@
 import {IService, IServiceResponse} from "#/service/iService"
 import {IAccount} from "#/service/iAccount"
 import {AUTH_NAME, IAuth} from "#/auth/iAuth"
-import {Browser, ElementHandle} from "puppeteer";
+import {Browser, ElementHandle, launch} from "puppeteer";
 
 class MediumService implements IService {
     account: IAccount;
     auth: IAuth;
-    browser: Browser;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const page = await this.browser.newPage();
+        const browser: Browser = await launch({headless: false, slowMo: 50, args: ['--incognito']});
+        const page = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
 
         console.log(`🚀: page.goto(meidum/top)`);
@@ -48,6 +48,7 @@ class MediumService implements IService {
 
         await page.click('button[data-action="save-profile"]');
 
+        await browser.close();
         return {status: 200}
     }
 }
