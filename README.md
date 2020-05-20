@@ -19,11 +19,11 @@
     ・amazon
     ・twitter
     ・facebook
-    ・medium
     ・linkedin
     ・note
     ・dev.to
     ・google
+    ・github
 　　※ 自身が登録しているAuth以外はどうしたものか。
 　　　ex. HatenaはGoogle Authを使ってログインしているが、通常ログインのコードが必要か...?
 ・画像更新以外も更新対象としたい
@@ -44,6 +44,8 @@ $ export CONTENTFUL_ACCESSTOKEN=
 $ export CONTENTFUL_SPACE=
 $ export GOOGLE_ID=
 $ export GOOGLE_PASSWORD=
+$ export TWITTER_ID=
+$ export TWITTER_PASSWORD=
 ```
 
 # Develop
