@@ -20,6 +20,7 @@ class MediumService implements IService {
         await (await page.$x('//a[text() = "Sign in"]'))[0].click();
         switch (this.auth.name) {
             case AUTH_NAME.GOOGLE:
+                await page.waitFor('#susi-modal-google-button', {visible:true});
                 await page.click('#susi-modal-google-button');
                 break;
         }
@@ -27,7 +28,6 @@ class MediumService implements IService {
         await this.auth.dispatch();
 
         console.log(`🚀: page.goto(Profile)`);
-        await page.waitForNavigation();
         await page.waitFor('button[data-action="open-userActions"]');
         await page.click('button[data-action="open-userActions"]');
         await page.waitForXPath('//a[text()="Profile"]');
