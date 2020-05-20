@@ -1,4 +1,4 @@
-import {IService, IServiceResponse} from "#/service/iService";
+import {IService} from "#/service/iService";
 import {GoogleAuth} from "#/auth/googleAuth";
 import {HatenaService} from "#/service/hatena/hatenaService";
 import {downloadAvatar, IContentProfile, profileRequest} from "#/service/contentfulApi";
@@ -8,6 +8,9 @@ import {QiitaService} from "#/service/qiita/qiitaService";
 import {QiitaAccount} from "#/service/qiita/qiitaAccount";
 import {MediumService} from "#/service/medium/mediumService";
 import {MediumAccount} from "#/service/medium/mediumAccount";
+import {TwitterService} from "#/service/twitter/twitterService";
+import {TwitterAccount} from "#/service/twitter/twitterAccount";
+import {TwitterPageAuth} from "#/auth/page/twitterPageAuth";
 
 (async()=> {
     const profile: IContentProfile = await profileRequest(process.env.CONTENTFUL_SPACE, process.env.CONTENTFUL_ACCESSTOKEN);
@@ -28,7 +31,12 @@ import {MediumAccount} from "#/service/medium/mediumAccount";
     mediumService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
     mediumService.account = new MediumAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const [res1, res2, res3] = await Promise.all([
+    const twitterService: IService = new TwitterService();
+    twitterService.auth = new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
+    twitterService.account = new TwitterAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+
+    const [...res] = await Promise.all([
+        twitterService.accountUpdate(),
         hatenaService.accountUpdate(),
         qiitaService.accountUpdate(),
         mediumService.accountUpdate()
