@@ -17,13 +17,11 @@
 　　・処理共通化・責任分離
 ・対象サービスの追加
     ・amazon
-    ・twitter
     ・facebook
     ・linkedin
     ・note
     ・dev.to
     ・google
-    ・github
 　　※ 自身が登録しているAuth以外はどうしたものか。
 　　　ex. HatenaはGoogle Authを使ってログインしているが、通常ログインのコードが必要か...?
 ・画像更新以外も更新対象としたい
