@@ -22,9 +22,8 @@ class GithubService implements IService {
         await page.goto('https://github.com/settings/profile');
         const input: ElementHandle = await page.$('input[type="file"]');
         await input.uploadFile(this.account.avatar);
-        await page.click('input[type="submit"]');
-        await page.waitForNavigation();
-
+        await page.waitFor('button[type="submit"][value="save"]:not([disabled])', {visible: true});
+        await page.click('button[type="submit"][value="save"]:not([disabled])');
         await browser.close();
         return {status: 200}
     }

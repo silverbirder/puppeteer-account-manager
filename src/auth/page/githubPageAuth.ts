@@ -19,11 +19,10 @@ class GithubPageAuth implements IAuth {
         const mailInput: string = '#login_field';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
-        const passwordInput: string = 'id="password"';
+        const passwordInput: string = '#password';
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('input[type="submit"]');
-        await this.page.waitForNavigation();
         console.log(`🤖: github page auth end`);
         return;
     }
