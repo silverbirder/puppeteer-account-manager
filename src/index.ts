@@ -11,6 +11,9 @@ import {MediumAccount} from "#/service/medium/mediumAccount";
 import {TwitterService} from "#/service/twitter/twitterService";
 import {TwitterAccount} from "#/service/twitter/twitterAccount";
 import {TwitterPageAuth} from "#/auth/page/twitterPageAuth";
+import {GithubService} from "#/service/github/githubService";
+import {GithubPageAuth} from "#/auth/page/githubPageAuth";
+import {GithubAccount} from "#/service/github/githubAccount";
 
 (async()=> {
     const profile: IContentProfile = await profileRequest(process.env.CONTENTFUL_SPACE, process.env.CONTENTFUL_ACCESSTOKEN);
@@ -35,10 +38,15 @@ import {TwitterPageAuth} from "#/auth/page/twitterPageAuth";
     twitterService.auth = new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
     twitterService.account = new TwitterAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
+    const githubService: IService = new GithubService();
+    githubService.auth = new GithubPageAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
+    githubService.account = new GithubAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+
     const [...res] = await Promise.all([
         twitterService.accountUpdate(),
         hatenaService.accountUpdate(),
         qiitaService.accountUpdate(),
-        mediumService.accountUpdate()
+        mediumService.accountUpdate(),
+        githubService.accountUpdate(),
     ]);
 })();

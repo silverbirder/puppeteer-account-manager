@@ -44,6 +44,8 @@ $ export GOOGLE_ID=
 $ export GOOGLE_PASSWORD=
 $ export TWITTER_ID=
 $ export TWITTER_PASSWORD=
+$ export GITHUB_ID=
+$ export GITHUB_PASSWORD=
 ```
 
 # Develop
