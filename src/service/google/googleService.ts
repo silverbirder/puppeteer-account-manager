@@ -3,7 +3,7 @@
 import {IService, IServiceResponse} from "#/service/iService"
 import {IAccount} from "#/service/iAccount"
 import {IAuth} from "#/auth/iAuth"
-import {Browser, ElementHandle, launch} from "puppeteer";
+import {Browser, ElementHandle, Frame, launch} from "puppeteer";
 
 class GoogleService implements IService {
     account: IAccount;
@@ -23,6 +23,21 @@ class GoogleService implements IService {
         await page.click('a[aria-label="Sign in"]');
 
         await this.auth.dispatch();
+
+        console.log(`🚀: page.goto(edit profile)`);
+        await page.waitFor('[aria-label="プロフィール画像を変更する"]');
+        await page.click('[aria-label="プロフィール画像を変更する"]');
+        const frames: Frame[] = await page.frames();
+        const frame: Frame = frames[frames.length - 1];
+
+        const filePath: string = this.account.avatar;
+        console.log(`🚀: update image ${filePath}`);
+        await frame.waitFor('input[type="file"]');
+        const input: ElementHandle = await frame.$('input[type="file"]');
+        await input.uploadFile(filePath);
+        await frame.waitFor('[aria-label="フォルダ「写真をアップロード」に切り替える"]');
+        await (await frame.$x('//div[text()="プロフィール写真に設定"]'))[1].click();
+        await page.waitForNavigation();
         await browser.close();
         return {status: 200}
     }
