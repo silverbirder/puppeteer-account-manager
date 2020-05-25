@@ -19,7 +19,7 @@ class QiitaService implements IService {
         await page.goto('https://qiita.com/login');
         switch (this.auth.name) {
             case AUTH_NAME.GOOGLE:
-                await page.$eval('.btn-google-inverse', form => form.submit());
+                await page.click('.btn-google-inverse');
                 break;
         }
         await this.auth.dispatch();

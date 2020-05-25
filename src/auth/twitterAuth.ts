@@ -4,7 +4,7 @@ import {IAuth, AUTH_NAME} from "#/auth/iAuth"
 import {Page} from "puppeteer";
 
 class TwitterAuth implements IAuth {
-    name: Symbol = AUTH_NAME.GOOGLE;
+    name: Symbol = AUTH_NAME.TWITTER;
     id: string;
     password: string;
     page: Page;
