@@ -3,8 +3,8 @@
 import {IAuth, AUTH_NAME} from "#/auth/iAuth"
 import {Page} from "puppeteer";
 
-class GithubPageAuth implements IAuth {
-    name: Symbol = AUTH_NAME.GOOGLE;
+class GithubAuth implements IAuth {
+    name: Symbol = AUTH_NAME.GITHUB;
     id: string;
     password: string;
     page: Page;
@@ -28,4 +28,4 @@ class GithubPageAuth implements IAuth {
     }
 }
 
-export {GithubPageAuth}
+export {GithubAuth}
