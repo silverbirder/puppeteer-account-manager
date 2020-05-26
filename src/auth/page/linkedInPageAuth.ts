@@ -3,7 +3,7 @@
 import {IAuth, AUTH_NAME} from "#/auth/iAuth"
 import {Page} from "puppeteer";
 
-class FacebookPageAuth implements IAuth {
+class LinkedInPageAuth implements IAuth {
     name: Symbol = AUTH_NAME.PAGE;
     id: string;
     password: string;
@@ -15,17 +15,18 @@ class FacebookPageAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: facebook page auth start`);
-        const mailInput: string = '#email';
+        console.log(`🤖: linkedIn page auth start`);
+        const mailInput: string = '#username';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
-        const passwordInput: string = '#pass';
+        const passwordInput: string = '#password';
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
-        await this.page.click('input[type="submit"]');
-        console.log(`🤖: facebook page auth end`);
+        await this.page.click('button[type="submit"]');
+        await this.page.waitForNavigation();
+        console.log(`🤖: linkedIn page auth end`);
         return;
     }
 }
 
-export {FacebookPageAuth}
+export {LinkedInPageAuth}
