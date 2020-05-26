@@ -25,22 +25,15 @@ class DevToService implements IService {
         }
         await this.auth.dispatch();
 
-        console.log(`🚀: page.goto(profile)`);
-        await page.waitFor('#navigation-butt');
-        await page.click('#navigation-butt');
-        await page.waitFor('#user-profile-link-placeholder', {visible: true});
-        await page.click('#user-profile-link-placeholder');
-
-        console.log(`🚀: page.goto(edit profile)`);
-        await page.waitFor('#user-follow-butt', {visible: true});
-        await page.click('#user-follow-butt');
+        console.log(`🚀: page.goto(profile setting)`);
+        await page.goto('https://dev.to/settings');
 
         console.log(`🚀: page.goto(upload image)`);
         await page.waitFor('[type="file"]');
         const input: ElementHandle = await page.$('[type="file"]');
         await input.uploadFile(this.account.avatar);
-        await page.keyboard.press('Enter');
-        await page.waitForNavigation();
+        await page.waitFor('[type="submit"]');
+        await page.click('[type="submit"]');
 
         await browser.close();
         return {status: 200}
