@@ -41,8 +41,6 @@ $ export FACEBOOK_ID=
 $ export FACEBOOK_PASSWORD=
 $ export LINKEDIN_ID=
 $ export LINKEDIN_PASSWORD=
-$ export AMAZON_ID=
-$ export AMAZON_PASSWORD=
 ```
 
 # Develop
