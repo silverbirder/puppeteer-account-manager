@@ -15,10 +15,6 @@
 　　・エラーハンドリング
 　　・テストコーディング
 　　・処理共通化・責任分離
-・対象サービスの追加
-    ・amazon
-　　※ 自身が登録しているAuth以外はどうしたものか。
-　　　ex. HatenaはGoogle Authを使ってログインしているが、通常ログインのコードが必要か...?
 ・画像更新以外も更新対象としたい
 　　・gravatarを情報源としたい
 　　　　・自己紹介文
@@ -45,6 +41,8 @@ $ export FACEBOOK_ID=
 $ export FACEBOOK_PASSWORD=
 $ export LINKEDIN_ID=
 $ export LINKEDIN_PASSWORD=
+$ export AMAZON_ID=
+$ export AMAZON_PASSWORD=
 ```
 
 # Develop
