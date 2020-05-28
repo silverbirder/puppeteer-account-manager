@@ -22,9 +22,6 @@
 　　　　・関連リンク (portfolioなど)
 　　　　-> avatarの画質が固定されていて(サイズ可変できるが)、サービスによっては使えなかった。
 　　　　　-> もっと柔軟に対応できるよう、Contentful APIを使ってみたい。
-・シークレットウィンドウで開いて、全サービス並列で動かしたい
-・DockerコンテナをDeploy
-　　・ローカルマシンで動かし、ゆくゆくはDeployしたい
 ```
 
 # Env
@@ -51,4 +48,6 @@ $ npm run dev
 // For prod
 $ npm  run build
 $ npm run start
+
+$ docker run --rm --env-file .env p:latest
 ```
