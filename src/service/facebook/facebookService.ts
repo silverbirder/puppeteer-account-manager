@@ -25,25 +25,21 @@ class FacebookService implements IService {
         await this.auth.dispatch();
 
         console.log(`🚀: page.goto(profile)`);
-        await page.waitFor('[data-click="profile_icon"]');
-        await page.click('[data-click="profile_icon"]');
-
-        console.log(`🚀: page.goto(edit profile)`);
-        await page.waitFor('#pagelet_timeline_profile_actions > a');
-        await page.click('#pagelet_timeline_profile_actions > a');
+        await page.waitForNavigation();
+        await page.goto('https://www.facebook.com/me');
 
         console.log(`🚀: page.goto(edit profile image)`);
         await page.waitFor('[aria-label="プロフィール写真を変更"]', {visible: true});
         await page.click('[aria-label="プロフィール写真を変更"]');
 
         console.log(`🚀: page.goto(upload image)`);
-        await page.waitFor('[aria-label="写真をアップロード"] > div > [type="file"]');
-        const input: ElementHandle = await page.$('[aria-label="写真をアップロード"] > div > [type="file"]');
+        await page.waitFor('[aria-label="プロフィール写真を変更"] [type="file"]');
+        const input: ElementHandle = await page.$('[aria-label="プロフィール写真を変更"] [type="file"]');
         await input.uploadFile(this.account.avatar);
 
         console.log(`🚀: page.goto(save image)`);
-        await page.waitForXPath('//*[contains(@class,"uiOverlayFooter")]//button[text()="保存"]');
-        await (await page.$x('//*[contains(@class,"uiOverlayFooter")]//button[text()="保存"]'))[0].click();
+        await page.waitFor('[aria-label="保存"]');
+        await page.click('[aria-label="保存"]');
 
         await browser.close();
         return {status: 200}

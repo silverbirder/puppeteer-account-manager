@@ -82,7 +82,7 @@ import {LinkedInAccount} from "#/service/linkedIn/linkedInAccount";
         // mediumService.accountUpdate(),
         //   githubService.accountUpdate(),
         // googleService.accountUpdate(),
-        //   facebookService.accountUpdate(),
+        // facebookService.accountUpdate(),
         // noteService.accountUpdate(),
         // devToService.accountUpdate(),
         // linkedInService.accountUpdate(),
