@@ -23,7 +23,6 @@ class LinkedInPageAuth implements IAuth {
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('button[type="submit"]');
-        await this.page.waitForNavigation();
         console.log(`🤖: linkedIn page auth end`);
         return;
     }
