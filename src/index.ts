@@ -77,10 +77,10 @@ import {LinkedInAccount} from "#/service/linkedIn/linkedInAccount";
 
     const [...res] = await Promise.all([
         // twitterService.accountUpdate(),
-        //   hatenaService.accountUpdate(),
+        // hatenaService.accountUpdate(),
         // qiitaService.accountUpdate(),
         // mediumService.accountUpdate(),
-        //   githubService.accountUpdate(),
+        // githubService.accountUpdate(),
         // googleService.accountUpdate(),
         // facebookService.accountUpdate(),
         // noteService.accountUpdate(),

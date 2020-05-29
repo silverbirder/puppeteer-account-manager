@@ -31,6 +31,7 @@ class DevToService implements IService {
         await this.auth.dispatch();
 
         console.log(`🚀: page.goto(profile setting)`);
+        await page.waitForNavigation();
         await page.goto('https://dev.to/settings');
 
         console.log(`🚀: page.goto(upload image)`);

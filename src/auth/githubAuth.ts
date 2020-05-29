@@ -23,7 +23,6 @@ class GithubAuth implements IAuth {
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('input[type="submit"]');
-        await this.page.waitForNavigation();
         console.log(`🤖: github page auth end`);
         return;
     }
