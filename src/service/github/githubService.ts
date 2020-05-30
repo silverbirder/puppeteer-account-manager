@@ -10,26 +10,35 @@ class GithubService implements IService {
     auth: IAuth;
 
     async accountUpdate(): Promise<IServiceResponse> {
-        const browser: Browser = await launch({
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox'
-            ]
-        });
-        const page = await browser.newPage();
-        await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
-        this.auth.page = page;
+        while (true) {
+            const browser: Browser = await launch({
+                timeout: 0,
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox'
+                ]
+            });
+            try {
+                const page = await browser.newPage();
+                await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.23 Safari/537.36');
+                this.auth.page = page;
 
-        console.log(`🚀: page.goto(github/login)`);
-        await page.goto('https://github.com/login');
-        await this.auth.dispatch();
+                console.log(`🚀: page.goto(github/login)`);
+                await page.goto('https://github.com/login');
+                await this.auth.dispatch();
 
-        await page.goto('https://github.com/settings/profile');
-        const input: ElementHandle = await page.$('input[type="file"]');
-        await input.uploadFile(this.account.avatar);
-        await page.waitFor('button[type="submit"][value="save"]:not([disabled])', {visible: true});
-        await page.click('button[type="submit"][value="save"]:not([disabled])');
-        await browser.close();
+                await page.goto('https://github.com/settings/profile');
+                const input: ElementHandle = await page.$('input[type="file"]');
+                await input.uploadFile(this.account.avatar);
+                await page.waitFor('button[type="submit"][value="save"]:not([disabled])', {visible: true});
+                await page.click('button[type="submit"][value="save"]:not([disabled])');
+                break;
+            } catch (e) {
+                console.log(e);
+            } finally {
+                await browser.close();
+            }
+        }
         return {status: 200}
     }
 }
