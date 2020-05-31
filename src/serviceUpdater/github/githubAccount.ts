@@ -1,6 +1,6 @@
 'use strict';
 
-import {IAccount} from "#/service/iAccount"
+import {IAccount} from "#/serviceUpdater/iAccount"
 
 class GithubAccount implements IAccount {
     avatar: string;

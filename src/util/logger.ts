@@ -4,7 +4,6 @@ const LOGGER_STATUS = {
     PROCESS: Symbol('PROCESS'),
     AUTH: Symbol('AUTH'),
     UPLOAD: Symbol('UPLOAD'),
-    DONE: Symbol('DONE'),
 };
 
 const LOGGER_STATUS_EMOJI = {
@@ -45,8 +44,13 @@ class Logger implements ILogger {
                 break;
             case PROCESS_STATUS.END:
                 message = 'end';
+                break;
         }
-        console.log(`${emoji} ${name}: ${message}`);
+        console.log(`${emoji} ${this.name}: ${message}`);
+    }
+    error(e: Error): void {
+        console.log(`${this.name}: ERROR!`);
+        console.error(e);
     }
 }
 

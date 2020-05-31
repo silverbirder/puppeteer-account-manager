@@ -99,13 +99,13 @@ import {Logger} from "#/util/logger";
     const [...res] = await Promise.all([
         twitterUpdater.run(),
         hatenaUpdater.run(),
-        qiitaUpdater.run(),
-        mediumUpdater.run(),
-        githubUpdater.run(),
-        googleUpdater.run(),
+        // qiitaUpdater.run(),
+        // mediumUpdater.run(),
+        // githubUpdater.run(),
+        // googleUpdater.run(),
         // facebookUpdater.run(),
-        noteUpdater.run(),
-        devToUpdater.run(),
-        linkedInUpdater.run(),
+        // noteUpdater.run(),
+        // devToUpdater.run(),
+        // linkedInUpdater.run(),
     ]);
 })();

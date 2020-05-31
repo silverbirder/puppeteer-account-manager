@@ -5,6 +5,7 @@ import {IAccount} from "#/serviceUpdater/iAccount";
 import {IAuth} from "#/auth/iAuth";
 import {ILogger} from "#/util/ILogger";
 import {Browser, launch, Page} from "puppeteer";
+import {LOGGER_STATUS} from "#/util/logger";
 
 abstract class BaseServiceUpdater implements IServiceUpdater {
     account: IAccount;
@@ -35,8 +36,9 @@ abstract class BaseServiceUpdater implements IServiceUpdater {
             this.auth.page = page;
             try {
                 await this.pageProcess(page);
+                break;
             } catch (e) {
-                console.log(e);
+                this.logger.error(e);
             } finally {
                 await browser.close();
             }

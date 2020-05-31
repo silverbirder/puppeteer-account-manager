@@ -3,7 +3,7 @@
 import {AUTH_NAME} from "#/auth/iAuth"
 import {ElementHandle, Page} from "puppeteer"
 import {BaseServiceUpdater} from "#/serviceUpdater/baseServiceUpdater"
-import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger";
+import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger"
 
 class MediumUpdater extends BaseServiceUpdater {
     async pageProcess(page: Page): Promise<void> {
