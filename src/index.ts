@@ -1,32 +1,34 @@
-import {IService} from "#/service/iService";
-import {GoogleAuth} from "#/auth/googleAuth";
-import {HatenaService} from "#/service/hatena/hatenaService";
-import {downloadAvatar, IContentProfile, profileRequest} from "#/service/contentfulApi";
+'use strict';
+
+import {IServiceUpdater} from "#/serviceUpdater/iServiceUpdater";
+import {GoogleAuth} from "#/auth/vendor/googleAuth";
+import {HatenaUpdater} from "#/serviceUpdater/hatena/hatenaUpdater";
+import {downloadAvatar, IContentProfile, profileRequest} from "#/avatarManager/contentfulManager";
 import * as path from "path";
-import {HatenaAccount} from "#/service/hatena/hatenaAccount";
-import {QiitaService} from "#/service/qiita/qiitaService";
-import {QiitaAccount} from "#/service/qiita/qiitaAccount";
-import {MediumService} from "#/service/medium/mediumService";
-import {MediumAccount} from "#/service/medium/mediumAccount";
-import {TwitterService} from "#/service/twitter/twitterService";
-import {TwitterAccount} from "#/service/twitter/twitterAccount";
+import {HatenaAccount} from "#/serviceUpdater/hatena/hatenaAccount";
+import {QiitaUpdater} from "#/serviceUpdater/qiita/qiitaUpdater";
+import {QiitaAccount} from "#/serviceUpdater/qiita/qiitaAccount";
+import {MediumUpdater} from "#/serviceUpdater/medium/mediumUpdater";
+import {MediumAccount} from "#/serviceUpdater/medium/mediumAccount";
+import {TwitterUpdater} from "#/serviceUpdater/twitter/twitterUpdater";
+import {TwitterAccount} from "#/serviceUpdater/twitter/twitterAccount";
 import {TwitterPageAuth} from "#/auth/page/twitterPageAuth";
-import {GithubService} from "#/service/github/githubService";
-import {GithubAuth} from "#/auth/githubAuth";
-import {GithubAccount} from "#/service/github/githubAccount";
-import {GoogleService} from "#/service/google/googleService";
-import {GoogleAccount} from "#/service/google/googleAccount";
-import {FacebookService} from "#/service/facebook/facebookService";
+import {GithubUpdater} from "#/serviceUpdater/github/githubUpdater";
+import {GithubAuth} from "#/auth/vendor/githubAuth";
+import {GithubAccount} from "#/serviceUpdater/github/githubAccount";
+import {GoogleUpdater} from "#/serviceUpdater/google/googleUpdater";
+import {GoogleAccount} from "#/serviceUpdater/google/googleAccount";
+import {FacebookUpdater} from "#/serviceUpdater/facebook/facebookUpdater";
 import {FacebookPageAuth} from "#/auth/page/facebookPageAuth";
-import {FacebookAccount} from "#/service/facebook/facebookAccount";
-import {NoteService} from "#/service/note/noteService";
-import {TwitterAuth} from "#/auth/twitterAuth";
-import {NoteAccount} from "#/service/note/noteAccount";
-import {DevToService} from "#/service/devTo/devToService";
-import {DevToAccount} from "#/service/devTo/devToAccount";
-import {LinkedInService} from "#/service/linkedIn/linkedInService";
+import {FacebookAccount} from "#/serviceUpdater/facebook/facebookAccount";
+import {NoteUpdater} from "#/serviceUpdater/note/noteUpdater";
+import {TwitterAuth} from "#/auth/vendor/twitterAuth";
+import {NoteAccount} from "#/serviceUpdater/note/noteAccount";
+import {DevToUpdater} from "#/serviceUpdater/devTo/devToUpdater";
+import {DevToAccount} from "#/serviceUpdater/devTo/devToAccount";
+import {LinkedInUpdater} from "#/serviceUpdater/linkedIn/linkedInUpdater";
 import {LinkedInPageAuth} from "#/auth/page/linkedInPageAuth";
-import {LinkedInAccount} from "#/service/linkedIn/linkedInAccount";
+import {LinkedInAccount} from "#/serviceUpdater/linkedIn/linkedInAccount";
 
 (async()=> {
     const profile: IContentProfile = await profileRequest(process.env.CONTENTFUL_SPACE, process.env.CONTENTFUL_ACCESSTOKEN);
@@ -35,56 +37,56 @@ import {LinkedInAccount} from "#/service/linkedIn/linkedInAccount";
         downloadAvatar(`${profile.avatar}`, downloadAvatarPath),
     ]);
 
-    const hatenaService: IService = new HatenaService();
-    hatenaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    hatenaService.account = new HatenaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const hatenaUpdater: IServiceUpdater = new HatenaUpdater();
+    hatenaUpdater.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
+    hatenaUpdater.account = new HatenaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const qiitaService: IService = new QiitaService();
-    qiitaService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    qiitaService.account = new QiitaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const qiitaUpdater: IServiceUpdater = new QiitaUpdater();
+    qiitaUpdater.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
+    qiitaUpdater.account = new QiitaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const mediumService: IService = new MediumService();
-    mediumService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    mediumService.account = new MediumAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const mediumUpdater: IServiceUpdater = new MediumUpdater();
+    mediumUpdater.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
+    mediumUpdater.account = new MediumAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const twitterService: IService = new TwitterService();
-    twitterService.auth = new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
-    twitterService.account = new TwitterAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const twitterUpdater: IServiceUpdater = new TwitterUpdater();
+    twitterUpdater.auth = new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
+    twitterUpdater.account = new TwitterAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const githubService: IService = new GithubService();
-    githubService.auth = new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
-    githubService.account = new GithubAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const githubUpdater: IServiceUpdater = new GithubUpdater();
+    githubUpdater.auth = new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
+    githubUpdater.account = new GithubAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const googleService: IService = new GoogleService();
-    googleService.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    googleService.account = new GoogleAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const googleUpdater: IServiceUpdater = new GoogleUpdater();
+    googleUpdater.auth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
+    googleUpdater.account = new GoogleAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const facebookService: IService = new FacebookService();
-    facebookService.auth = new FacebookPageAuth({id: process.env.FACEBOOK_ID, password: process.env.FACEBOOK_PASSWORD});
-    facebookService.account = new FacebookAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const facebookUpdater: IServiceUpdater = new FacebookUpdater();
+    facebookUpdater.auth = new FacebookPageAuth({id: process.env.FACEBOOK_ID, password: process.env.FACEBOOK_PASSWORD});
+    facebookUpdater.account = new FacebookAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const noteService: IService = new NoteService();
-    noteService.auth = new TwitterAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
-    noteService.account = new NoteAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const noteUpdater: IServiceUpdater = new NoteUpdater();
+    noteUpdater.auth = new TwitterAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
+    noteUpdater.account = new NoteAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const devToService: IService = new DevToService();
-    devToService.auth = new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
-    devToService.account = new DevToAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const devToUpdater: IServiceUpdater = new DevToUpdater();
+    devToUpdater.auth = new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
+    devToUpdater.account = new DevToAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
-    const linkedInService: IService = new LinkedInService();
-    linkedInService.auth = new LinkedInPageAuth({id: process.env.LINKEDIN_ID, password: process.env.LINKEDIN_PASSWORD});
-    linkedInService.account = new LinkedInAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
+    const linkedInUpdater: IServiceUpdater = new LinkedInUpdater();
+    linkedInUpdater.auth = new LinkedInPageAuth({id: process.env.LINKEDIN_ID, password: process.env.LINKEDIN_PASSWORD});
+    linkedInUpdater.account = new LinkedInAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe});
 
     const [...res] = await Promise.all([
-        // twitterService.accountUpdate(),
-        // hatenaService.accountUpdate(),
-        // qiitaService.accountUpdate(),
-        // mediumService.accountUpdate(),
-        // githubService.accountUpdate(),
-        // googleService.accountUpdate(),
-        // facebookService.accountUpdate(),
-        // noteService.accountUpdate(),
-        // devToService.accountUpdate(),
-        // linkedInService.accountUpdate(),
+        twitterUpdater.run(),
+        hatenaUpdater.run(),
+        qiitaUpdater.run(),
+        mediumUpdater.run(),
+        githubUpdater.run(),
+        googleUpdater.run(),
+        // facebookUpdater.run(),
+        noteUpdater.run(),
+        devToUpdater.run(),
+        linkedInUpdater.run(),
     ]);
 })();
