@@ -7,11 +7,15 @@ const LOGGER_STATUS = {
     DONE: Symbol('DONE'),
 };
 
-const STATUS_EMOJI = {
+const LOGGER_STATUS_EMOJI = {
     PROCESS: '🤖',
     AUTH: '🔑',
     UPLOAD: '🖼',
-    DONE: '🚀',
+};
+
+const PROCESS_STATUS = {
+    START: Symbol('START'),
+    END: Symbol('END'),
 };
 
 class Logger implements ILogger {
@@ -21,24 +25,29 @@ class Logger implements ILogger {
         this.name = name;
     }
 
-    log(message: string, status: Symbol): void {
+    log(status: Symbol, process: Symbol): void {
         let emoji: string;
         switch (status) {
             case LOGGER_STATUS.PROCESS:
-                emoji = STATUS_EMOJI.PROCESS;
+                emoji = LOGGER_STATUS_EMOJI.PROCESS;
                 break;
             case LOGGER_STATUS.AUTH:
-                emoji = STATUS_EMOJI.AUTH;
+                emoji = LOGGER_STATUS_EMOJI.AUTH;
                 break;
             case LOGGER_STATUS.UPLOAD:
-                emoji = STATUS_EMOJI.UPLOAD;
+                emoji = LOGGER_STATUS_EMOJI.UPLOAD;
                 break;
-            case LOGGER_STATUS.DONE:
-                emoji = STATUS_EMOJI.DONE;
+        }
+        let message: string;
+        switch (process) {
+            case PROCESS_STATUS.START:
+                message = 'starting...';
                 break;
+            case PROCESS_STATUS.END:
+                message = 'end';
         }
         console.log(`${emoji} ${name}: ${message}`);
     }
 }
 
-export {Logger, LOGGER_STATUS}
+export {Logger, LOGGER_STATUS, PROCESS_STATUS}

@@ -15,7 +15,6 @@ class FacebookPageAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: facebook page auth start`);
         const mailInput: string = '#email';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
@@ -23,8 +22,6 @@ class FacebookPageAuth implements IAuth {
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('input[type="submit"]');
-        console.log(`🤖: facebook page auth end`);
-        return;
     }
 }
 

@@ -15,7 +15,6 @@ class TwitterPageAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: twitter page auth start`);
         const mailInput: string = 'input[name="session[username_or_email]"][type="text"]';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
@@ -24,8 +23,6 @@ class TwitterPageAuth implements IAuth {
         await this.page.type(passwordInput, this.password);
         await (await this.page.$$('[data-testid="LoginForm_Login_Button"]'))[0].click();
         await this.page.waitForNavigation();
-        console.log(`🤖: twitter page auth end`);
-        return;
     }
 }
 

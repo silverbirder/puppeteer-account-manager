@@ -2,33 +2,31 @@
 
 import {ElementHandle, Page} from "puppeteer"
 import {BaseServiceUpdater} from "#/serviceUpdater/baseServiceUpdater"
+import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger";
 
 class LinkedInUpdater extends BaseServiceUpdater {
     async pageProcess(page: Page): Promise<void> {
-        console.log(`🚀: page.goto(linkedIn/login)`);
+        this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.START);
         await page.goto('https://www.linkedin.com/login');
+        this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.START);
         await this.auth.dispatch();
-
-        console.log(`🚀: page.goto(profile)`);
+        this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
         await page.waitFor('[data-control-name="identity_profile_photo"]');
         await page.click('[data-control-name="identity_profile_photo"]');
-
-        console.log(`🚀: page.goto(edit profile image)`);
         await page.waitFor('[data-control-name="edit_profile_photo"]');
         await page.click('[data-control-name="edit_profile_photo"]');
         await page.waitFor('[data-control-name="change_upload_photo"]');
         await page.click('[data-control-name="change_upload_photo"]');
-
         const filePath: string = this.account.avatar;
-        console.log(`🚀: update image ${filePath}`);
+        this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.waitFor('input[type="file"]');
         const input: ElementHandle = await page.$('input[type="file"]');
         await input.uploadFile(filePath);
-
-        console.log(`🚀: page.goto(save profile image)`);
+        this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
         await page.waitFor('[data-control-name="profile_photo_crop_save"]');
         await page.click('[data-control-name="profile_photo_crop_save"]');
         await page.waitForNavigation();
+        this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }
 }
 

@@ -15,7 +15,6 @@ class GoogleAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: google auth start`);
         const mailInput: string = 'input[type="email"]';
         await this.page.waitForSelector(mailInput, {visible: true});
         await this.page.type(mailInput, this.id);
@@ -25,8 +24,6 @@ class GoogleAuth implements IAuth {
         await this.page.type(passwordInput, this.password);
         await this.page.keyboard.press('Enter');
         await this.page.waitForNavigation();
-        console.log(`🤖: google auth end`);
-        return;
     }
 }
 

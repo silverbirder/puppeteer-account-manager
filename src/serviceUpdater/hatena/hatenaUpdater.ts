@@ -3,10 +3,11 @@
 import {AUTH_NAME} from "#/auth/iAuth"
 import {ElementHandle, Page} from "puppeteer"
 import {BaseServiceUpdater} from "#/serviceUpdater/baseServiceUpdater"
+import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger";
 
 class HatenaUpdater extends BaseServiceUpdater {
     async pageProcess(page: Page): Promise<void> {
-        console.log(`🚀: page.goto(hatena/login)`);
+        this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.START);
         await page.goto('https://www.hatena.ne.jp/login');
         switch (this.auth.name) {
             case AUTH_NAME.GOOGLE:
@@ -18,33 +19,26 @@ class HatenaUpdater extends BaseServiceUpdater {
                 this.auth.page = newPage;
                 break;
         }
+        this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.START);
         await this.auth.dispatch();
-
-        console.log(`🚀: page.goto(profile)`);
+        this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
         await page.waitFor('#profile-image-profile');
         await page.click('#profile-image-profile');
-
-        console.log(`🚀: page.goto(edit tab)`);
         await page.waitFor('#edit-tab > a');
         await page.click('#edit-tab > a');
-
-        console.log(`🚀: page.click(notice dialog)`);
         await page.waitFor('#privacy-alert-ok');
         await page.click('#privacy-alert-ok');
-
-        console.log(`🚀: page.click(change image link)`);
         await page.waitFor('td > a');
         await page.click('td > a');
-
         const filePath: string = this.account.avatar;
-        console.log(`🚀: update image ${filePath}`);
+        this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.waitFor('input[type="file"]');
         const input: ElementHandle = await page.$('input[type="file"]');
         await input.uploadFile(filePath);
-
-        console.log(`🚀: page.click submit`);
+        this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
         await page.click('input[type="submit"]');
         await page.waitForNavigation();
+        this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }
 }
 

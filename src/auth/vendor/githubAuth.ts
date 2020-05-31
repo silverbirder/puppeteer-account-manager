@@ -15,7 +15,6 @@ class GithubAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: github page auth start`);
         const mailInput: string = '#login_field';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
@@ -23,8 +22,6 @@ class GithubAuth implements IAuth {
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('input[type="submit"]');
-        console.log(`🤖: github page auth end`);
-        return;
     }
 }
 

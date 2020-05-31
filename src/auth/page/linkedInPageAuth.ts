@@ -15,7 +15,6 @@ class LinkedInPageAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        console.log(`🤖: linkedIn page auth start`);
         const mailInput: string = '#username';
         await this.page.waitFor(mailInput);
         await this.page.type(mailInput, this.id);
@@ -23,8 +22,6 @@ class LinkedInPageAuth implements IAuth {
         await this.page.waitFor(passwordInput);
         await this.page.type(passwordInput, this.password);
         await this.page.click('button[type="submit"]');
-        console.log(`🤖: linkedIn page auth end`);
-        return;
     }
 }
 

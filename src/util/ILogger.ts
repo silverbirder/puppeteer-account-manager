@@ -1,7 +1,7 @@
 interface ILogger {
     name: string;
 
-    log(message: string, status: Symbol): void;
+    log(status: Symbol, process: Symbol): void;
 }
 
 export {ILogger}
