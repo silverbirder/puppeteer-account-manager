@@ -1,4 +1,6 @@
-import {ILogger} from "#/util/ILogger";
+'use strict';
+
+import {ILogger} from "#/util/ILogger"
 
 const LOGGER_STATUS = {
     PROCESS: Symbol('PROCESS'),
@@ -48,6 +50,7 @@ class Logger implements ILogger {
         }
         console.log(`${emoji} ${this.name}: ${message}`);
     }
+
     error(e: Error): void {
         console.log(`${this.name}: ERROR!`);
         console.error(e);

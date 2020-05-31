@@ -1,13 +1,13 @@
 'use strict';
 
 import {IAuth, AUTH_NAME} from "#/auth/iAuth"
-import {Page} from "puppeteer";
+import {IPage} from "#/serviceUpdater/page/iPage"
 
 class LinkedInPageAuth implements IAuth {
     name: Symbol = AUTH_NAME.PAGE;
     id: string;
     password: string;
-    page: Page;
+    page: IPage;
 
     constructor(params: { id: string, password: string }) {
         this.id = params.id;
@@ -15,12 +15,8 @@ class LinkedInPageAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        const mailInput: string = '#username';
-        await this.page.waitFor(mailInput);
-        await this.page.type(mailInput, this.id);
-        const passwordInput: string = '#password';
-        await this.page.waitFor(passwordInput);
-        await this.page.type(passwordInput, this.password);
+        await this.page.type('#username', this.id);
+        await this.page.type('#password', this.password);
         await this.page.click('button[type="submit"]');
     }
 }

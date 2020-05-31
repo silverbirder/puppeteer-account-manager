@@ -1,13 +1,13 @@
 'use strict';
 
 import {IAuth, AUTH_NAME} from "#/auth/iAuth"
-import {Page} from "puppeteer";
+import {IPage} from "#/serviceUpdater/page/iPage"
 
 class TwitterAuth implements IAuth {
     name: Symbol = AUTH_NAME.TWITTER;
     id: string;
     password: string;
-    page: Page;
+    page: IPage;
 
     constructor(params: { id: string, password: string }) {
         this.id = params.id;
@@ -15,12 +15,8 @@ class TwitterAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        const mailInput: string = '#username_or_email';
-        await this.page.waitFor(mailInput);
-        await this.page.type(mailInput, this.id);
-        const passwordInput: string = '#password';
-        await this.page.waitFor(passwordInput);
-        await this.page.type(passwordInput, this.password);
+        await this.page.type('#username_or_email', this.id);
+        await this.page.type('#password', this.password);
         await this.page.click('#allow');
         await this.page.waitForNavigation();
     }

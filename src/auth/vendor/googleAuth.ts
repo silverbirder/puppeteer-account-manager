@@ -1,13 +1,13 @@
 'use strict';
 
 import {IAuth, AUTH_NAME} from "#/auth/iAuth"
-import {Page} from "puppeteer";
+import {IPage} from "#/serviceUpdater/page/iPage"
 
 class GoogleAuth implements IAuth {
     name: Symbol = AUTH_NAME.GOOGLE;
     id: string;
     password: string;
-    page: Page;
+    page: IPage;
 
     constructor(params: { id: string, password: string }) {
         this.id = params.id;
@@ -15,14 +15,10 @@ class GoogleAuth implements IAuth {
     }
 
     async dispatch(): Promise<void> {
-        const mailInput: string = 'input[type="email"]';
-        await this.page.waitForSelector(mailInput, {visible: true});
-        await this.page.type(mailInput, this.id);
-        await this.page.keyboard.press('Enter');
-        const passwordInput: string = 'input[type="password"]';
-        await this.page.waitForSelector(passwordInput, {visible: true});
-        await this.page.type(passwordInput, this.password);
-        await this.page.keyboard.press('Enter');
+        await this.page.type('input[type="email"]', this.id, {visible: true});
+        await this.page.enter();
+        await this.page.type('input[type="password"]', this.password, {visible: true});
+        await this.page.enter();
         await this.page.waitForNavigation();
     }
 }

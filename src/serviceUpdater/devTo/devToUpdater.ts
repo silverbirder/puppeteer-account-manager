@@ -1,18 +1,17 @@
 'use strict';
 
 import {AUTH_NAME} from "#/auth/iAuth"
-import {ElementHandle, Page} from "puppeteer"
 import {BaseServiceUpdater} from "#/serviceUpdater/baseServiceUpdater"
 import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger"
+import {IPage} from "#/serviceUpdater/page/iPage"
 
 class DevToUpdater extends BaseServiceUpdater {
-    async pageProcess(page: Page): Promise<void> {
+    async pageProcess(page: IPage): Promise<void> {
         this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.START);
         await page.goto('https://dev.to/enter');
         switch (this.auth.name) {
             case AUTH_NAME.GITHUB:
-                await page.waitForXPath('//div[contains(@class, "link")]/a[contains(@href, "github")]');
-                await (await page.$x('//div[contains(@class, "link")]/a[contains(@href, "github")]'))[0].click();
+                await page.xClick('//div[contains(@class, "link")]/a[contains(@href, "github")]', 0);
                 break;
         }
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.START);
@@ -21,11 +20,8 @@ class DevToUpdater extends BaseServiceUpdater {
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
         await page.goto('https://dev.to/settings');
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
-        await page.waitFor('[type="file"]');
-        const input: ElementHandle = await page.$('[type="file"]');
-        await input.uploadFile(this.account.avatar);
+        await page.uploadFile(this.account.avatar, 'input[type="file"]', 0);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
-        await page.waitFor('[type="submit"]');
         await page.click('[type="submit"]');
         this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }

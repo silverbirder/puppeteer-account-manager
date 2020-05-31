@@ -1,12 +1,12 @@
 'use strict';
 
-import {Page} from "puppeteer";
+import {IPage} from "#/serviceUpdater/page/iPage"
 
 interface IAuth {
     name: Symbol;
     id: string;
     password: string;
-    page: Page;
+    page: IPage;
 
     dispatch(): Promise<void>;
 }
