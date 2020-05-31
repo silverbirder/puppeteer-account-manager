@@ -11,8 +11,7 @@ class TwitterUpdater extends BaseServiceUpdater {
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.START);
         await this.auth.dispatch();
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
-        await page.click('a[aria-label="プロフィール"]');
-        await page.click('a[href="/settings/profile"]');
+        await page.goto('https://twitter.com/settings/profile');
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.uploadFile(this.account.avatar, 'input[type="file"]', 1);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
