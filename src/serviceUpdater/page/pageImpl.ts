@@ -2,6 +2,7 @@
 
 import {IPage} from "#/serviceUpdater/page/iPage"
 import {ElementHandle, EvaluateFn, Frame, Page, Target} from "puppeteer"
+import * as path from "path";
 
 class PageImpl implements IPage {
     page: Page | Frame;
@@ -81,7 +82,8 @@ class PageImpl implements IPage {
 
     async screenshot(name: string): Promise<void> {
         if ("screenshot" in this.page) {
-            await this.page.screenshot({path: `./${name}.png`});
+            const screenshotPath: string = path.join(__dirname, `../../../dist/`, `${name}.png`);
+            await this.page.screenshot({path: screenshotPath});
         }
     }
 
