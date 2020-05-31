@@ -26,6 +26,8 @@ interface IPage {
     target(): Target;
 
     screenshot(name: string): Promise<void>;
+
+    evaluate(expression: string): Promise<string>;
 }
 
 export {IPage}

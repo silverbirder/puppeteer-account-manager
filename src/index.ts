@@ -97,7 +97,7 @@ import {Logger} from "#/util/logger";
     );
 
     const [...res] = await Promise.all([
-        // mediumUpdater.run(),
+        mediumUpdater.run(),
         googleUpdater.run(),
         noteUpdater.run(),
         devToUpdater.run(),

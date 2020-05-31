@@ -84,6 +84,10 @@ class PageImpl implements IPage {
             await this.page.screenshot({path: `./${name}.png`});
         }
     }
+
+    async evaluate(expression: string): Promise<string> {
+        return (await this.page.evaluate(expression)).toString();
+    }
 }
 
 export {PageImpl}

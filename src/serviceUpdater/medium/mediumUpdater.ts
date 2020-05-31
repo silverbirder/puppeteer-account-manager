@@ -18,11 +18,8 @@ class MediumUpdater extends BaseServiceUpdater {
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.START);
         await this.auth.dispatch();
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
-        await page.click('button[data-action="open-userActions"]');
-        await page.xClick('//a[text()="Profile"]', 0);
-        await page.waitForNavigation();
-        await page.xClick('//a[text()="Edit profile"]', 0);
-        await page.waitForNavigation();
+        const userName: string = await page.evaluate('document.querySelector(".avatar-image").getAttribute("alt")');
+        await page.goto(`https://medium.com/@${userName}/edit`);
         await page.click('.hero-avatarPicker');
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.uploadFile(this.account.avatar, 'input[type="file"]', 0);
