@@ -19,9 +19,9 @@ class GoogleUpdater extends BaseServiceUpdater {
         await frame.uploadFile(this.account.avatar, 'input[type="file"]', 0);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
         await frame.waitForFunction(() => {
-            document.querySelector('[aria-label="フォルダ「写真をアップロード」に切り替える"]');
+            return document.querySelector('[aria-label="フォルダ「写真をアップロード」に切り替える"]');
         });
-        await page.xClick('//div[text()="プロフィール写真に設定"]', 1);
+        await frame.xClick('//div[text()="プロフィール写真に設定"]', 1);
         await page.waitForNavigation();
         this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }

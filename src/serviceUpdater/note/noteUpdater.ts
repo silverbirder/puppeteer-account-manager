@@ -26,7 +26,7 @@ class NoteUpdater extends BaseServiceUpdater {
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
         await page.xClick('//*[contains(@class,"m-modalFooterButtonGroup")]/button/*[contains(text(), "保存")]', 0, {visible: true});
         await page.waitForFunction(() => {
-            !document.querySelector('.m-modalFooterButtonGroup');
+            return !document.querySelector('.m-modalFooterButtonGroup');
         });
         await page.xClick('//*[contains(@class,"o-creatorProfile__editButton")]/button/*[contains(text(), "保存")]', 0);
         await page.waitForNavigation();
