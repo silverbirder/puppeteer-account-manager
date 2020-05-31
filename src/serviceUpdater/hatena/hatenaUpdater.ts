@@ -23,14 +23,12 @@ class HatenaUpdater extends BaseServiceUpdater {
         await this.auth.dispatch();
         this.logger.log(LOGGER_STATUS.AUTH, PROCESS_STATUS.END);
         await page.click('#profile-image-profile');
-        await page.click('#edit-tab > a');
-        await page.click('#privacy-alert-ok');
-        await page.click('td > a');
+        const userName: string = await page.evaluate('document.querySelector("#header-username").getAttribute("data-name")');
+        await page.goto(`https://www.hatena.ne.jp/${userName}/config/profile`);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.uploadFile(this.account.avatar, 'input[type="file"]', 0);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
         await page.click('input[type="submit"]');
-        await page.waitForNavigation();
         this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }
 }
