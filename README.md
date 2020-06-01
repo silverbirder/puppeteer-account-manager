@@ -38,5 +38,6 @@ $ npm run dev
 $ npm  run build
 $ npm run start
 
+$ docker build -t p:latest .
 $ docker run --rm --env-file .env p:latest
 ```

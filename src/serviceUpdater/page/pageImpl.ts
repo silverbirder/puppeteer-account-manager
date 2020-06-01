@@ -82,6 +82,7 @@ class PageImpl implements IPage {
 
     async screenshot(name: string): Promise<void> {
         if ("screenshot" in this.page) {
+            // TODO: build時 (bundle)は、pathが ../distになる。
             const screenshotPath: string = path.join(__dirname, `../../../dist/`, `${name}.png`);
             await this.page.screenshot({path: screenshotPath});
         }
