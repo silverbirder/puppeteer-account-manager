@@ -38,61 +38,54 @@ import {Logger} from "#/util/logger";
         downloadAvatar(`${profile.avatar}`, downloadAvatarPath),
     ]);
 
-    const googleAuth = new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD});
-    const githubAuth = new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD});
-    const twitterAuth = new TwitterAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
-    const twitterPageAuth = new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD});
-    const facebookPageAuth = new FacebookPageAuth({id: process.env.FACEBOOK_ID, password: process.env.FACEBOOK_PASSWORD});
-    const linkedInPageAuth = new LinkedInPageAuth({id: process.env.LINKEDIN_ID, password: process.env.LINKEDIN_PASSWORD});
-
     const hatenaUpdater: IServiceUpdater = new HatenaUpdater(
         new HatenaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        googleAuth,
+        new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD}),
         new Logger('hatena')
     );
     const qiitaUpdater: IServiceUpdater = new QiitaUpdater(
         new QiitaAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        googleAuth,
+        new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD}),
         new Logger('qiita')
     );
     const mediumUpdater: IServiceUpdater = new MediumUpdater(
         new MediumAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        googleAuth,
+        new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD}),
         new Logger('medium')
     );
     const twitterUpdater: IServiceUpdater = new TwitterUpdater(
         new TwitterAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        twitterPageAuth,
+        new TwitterPageAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD}),
         new Logger('twitter')
     );
     const githubUpdater: IServiceUpdater = new GithubUpdater(
         new GithubAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        githubAuth,
+        new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD}),
         new Logger('github')
     );
     const googleUpdater: IServiceUpdater = new GoogleUpdater(
         new GoogleAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        googleAuth,
+        new GoogleAuth({id: process.env.GOOGLE_ID, password: process.env.GOOGLE_PASSWORD}),
         new Logger('google')
     );
     const facebookUpdater: IServiceUpdater = new FacebookUpdater(
         new FacebookAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        facebookPageAuth,
+        new FacebookPageAuth({id: process.env.FACEBOOK_ID, password: process.env.FACEBOOK_PASSWORD}),
         new Logger('facebook')
     );
     const noteUpdater: IServiceUpdater = new NoteUpdater(
         new NoteAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        twitterAuth,
+        new TwitterAuth({id: process.env.TWITTER_ID, password: process.env.TWITTER_PASSWORD}),
         new Logger('note')
     );
     const devToUpdater: IServiceUpdater = new DevToUpdater(
         new DevToAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        githubAuth,
+        new GithubAuth({id: process.env.GITHUB_ID, password: process.env.GITHUB_PASSWORD}),
         new Logger('devTo')
     );
     const linkedInUpdater: IServiceUpdater = new LinkedInUpdater(
         new LinkedInAccount({avatar: downloadAvatarPath, introduction: profile.aboutMe}),
-        linkedInPageAuth,
+        new LinkedInPageAuth({id: process.env.LINKEDIN_ID, password: process.env.LINKEDIN_PASSWORD}),
         new Logger('linkedIn')
     );
 

@@ -17,6 +17,7 @@ const LOGGER_STATUS_EMOJI = {
 const PROCESS_STATUS = {
     START: Symbol('START'),
     END: Symbol('END'),
+    OTHER: Symbol('OTHER'),
 };
 
 class Logger implements ILogger {
@@ -26,7 +27,7 @@ class Logger implements ILogger {
         this.name = name;
     }
 
-    log(status: Symbol, process: Symbol): void {
+    log(status: Symbol, process: Symbol, message?: string): void {
         let emoji: string;
         switch (status) {
             case LOGGER_STATUS.PROCESS:
@@ -39,7 +40,6 @@ class Logger implements ILogger {
                 emoji = LOGGER_STATUS_EMOJI.UPLOAD;
                 break;
         }
-        let message: string;
         switch (process) {
             case PROCESS_STATUS.START:
                 message = 'starting...';

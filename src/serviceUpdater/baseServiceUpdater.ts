@@ -7,6 +7,7 @@ import {ILogger} from "#/util/ILogger"
 import {Browser, launch, Page} from "puppeteer"
 import {IPage} from "#/serviceUpdater/page/iPage"
 import {PageImpl} from "#/serviceUpdater/page/pageImpl"
+import {LOGGER_STATUS, PROCESS_STATUS} from "#/util/logger";
 
 abstract class BaseServiceUpdater implements IServiceUpdater {
     account: IAccount;
@@ -23,9 +24,10 @@ abstract class BaseServiceUpdater implements IServiceUpdater {
     abstract async pageProcess(page: IPage): Promise<void>
 
     async run(): Promise<IServiceResponse> {
-        while (true) {
+        for (let loopCounter in [...Array(process.env.MAX_LOOP_COUNT || 5)]) {
+            this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.OTHER, `in the ${loopCounter}th loop`);
             const browser: Browser = await launch({
-                timeout: 0,
+                timeout: parseInt(process.env.BROWSER_TIMEOUT) || 0,
                 args: [
                     '--no-sandbox',
                     '--disable-setuid-sandbox'
