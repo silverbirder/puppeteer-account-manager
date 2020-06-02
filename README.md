@@ -5,8 +5,8 @@ puppeteer-account-manager is a tool that get the profiles (image, aboutMe, etc) 
 
 ## Motivation
 I use various services (Github, Facebook, Twitter, etc).  
-For each service, I need to register a profile (Avatar photo, aboutMe, etc).     
-Once I have my favorite profile picture 😙, I want to update to all services 😔.  
+For each service, I need to register a profile (Avatar Photo, AboutMe, etc).     
+Once I have my favorite profile photo😙, I want to update to all services 😔.  
 It's very inconvenient. So I made this tool and automated it 😊.
 
 ## Contentful Model
