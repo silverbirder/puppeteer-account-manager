@@ -17,6 +17,9 @@ class FacebookUpdater extends BaseServiceUpdater {
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.START);
         await page.uploadFile(this.account.avatar, '[aria-label="プロフィール写真を変更"] [type="file"]', 0);
         this.logger.log(LOGGER_STATUS.UPLOAD, PROCESS_STATUS.END);
+        [...Array(5)].map(async () => {
+            await page.click('[aria-label="縮小"]');
+        });
         await page.click('[aria-label="保存"]');
         this.logger.log(LOGGER_STATUS.PROCESS, PROCESS_STATUS.END);
     }
