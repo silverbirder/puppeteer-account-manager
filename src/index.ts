@@ -33,7 +33,7 @@ import {Logger} from "#/util/logger";
 
 (async()=> {
     const profile: IContentProfile = await profileRequest(process.env.CONTENTFUL_SPACE, process.env.CONTENTFUL_ACCESSTOKEN);
-    const downloadAvatarPath: string = path.join(__dirname, `../dist/`, `${path.basename(profile.avatar)}`);
+    const downloadAvatarPath: string = path.join(process.env.NODE_PATH, `./dist/`, `${path.basename(profile.avatar)}`);
     await Promise.all([
         downloadAvatar(`${profile.avatar}`, downloadAvatarPath),
     ]);
