@@ -1,8 +1,101 @@
 # puppeteer-account-manager
 ## Overview
-![overview](./overview.svg)
+![overview](./overview.svg)  
+puppeteer-account-manager is a tool that get the profiles (image, aboutMe, etc) from [Contentful](https://www.contentful.com) and updates the profile of each service.
 
 ## Motivation
+I use various services (Github, Facebook, Twitter, etc).  
+For each service, I need to register a profile (Avatar photo, aboutMe, etc).     
+Once I have my favorite profile picture 😙, I want to update to all services 😔.  
+It's very inconvenient. So I made this tool and automated it 😊.
+
+## Contentful Model
+```json
+{
+  "name": "Profile",
+  "fields": [
+    {
+      "id": "type",
+      "name": "Type",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "firstName",
+      "name": "First Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "lastName",
+      "name": "Last Name",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "linkType": "Asset"
+    },
+    {
+      "id": "aboutMe",
+      "name": "About Me",
+      "type": "RichText",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "nodes": {}
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "address",
+      "name": "Address",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "url",
+      "name": "URL",
+      "type": "Object",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    }
+  ]
+}
+```
+The following is required  
+`profile.fields.type = 'BASE'` 
+
+```
 
 ## Env
 ```bash
@@ -24,7 +117,7 @@ $ export LINKEDIN_PASSWORD=
 ```bash
 $ npm install
 $ npm run dev
-$ npm  run build
+$ npm run build
 $ npm run start
 ```
 
