@@ -1,13 +1,13 @@
 # puppeteer-account-manager
 ## Overview
 ![overview](./overview.svg)  
-puppeteer-account-manager is a tool that get the profiles (image, aboutMe, etc) from [Contentful](https://www.contentful.com) and updates the profile of each service.
+puppeteer-account-manager is a tool that get the profiles (photo, aboutMe, etc) from [Contentful](https://www.contentful.com) and updates the profile of each service.
 
 ## Motivation
 I use various services (Github, Facebook, Twitter, etc).  
-For each service, I need to register a profile (Avatar Photo, AboutMe, etc).     
-Once I have my favorite profile photo😙, I want to update to all services 😔.  
-It's very inconvenient. So I made this tool and automated it 😊.
+For the each service, I need to register a profile (photo, aboutMe, etc).     
+Once I have my favorite profile photo🖼, I want to update to **all** service's profiles.  
+It's very inconvenient...😇, So I made this tool For automating it!🚀
 
 ## Contentful Model
 ```json
