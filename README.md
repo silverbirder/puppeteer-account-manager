@@ -1,19 +1,10 @@
 # puppeteer-account-manager
+## Overview
+![overview](./overview.svg)
 
-## TODO
-```
-・認証情報管理の利用
-　　・envに認証情報を書く面倒さをなくしたい
-    　・ 1Password, Lastpass, Keepass でなんとかしたい
-    　  ・ 1Password -> 有料 ☓
-    　  ・ Lastpass -> クラウドサーバに保存される 怖い ☓
-    　  ・ Keepass -> ローカル環境に保存 ○
-    　  　・　KeepassファイルはDropboxへファイルアップロードできるので、
-　　　　　　　 直接データを入れるか、Dropboxへダウンロードさせにいくか。
-　　・テストコーディング
-```
+## Motivation
 
-# Env
+## Env
 ```bash
 $ export CONTENTFUL_ACCESSTOKEN=
 $ export CONTENTFUL_SPACE=
@@ -29,15 +20,30 @@ $ export LINKEDIN_ID=
 $ export LINKEDIN_PASSWORD=
 ```
 
-# Develop
+## Develop
 ```bash
 $ npm install
-// For dev
 $ npm run dev
-// For prod
 $ npm  run build
 $ npm run start
+```
 
+## Run on Docker
+```bash
 $ docker build -t p:latest .
+$ cat <<EOF > .env
+CONTENTFUL_ACCESSTOKEN=
+CONTENTFUL_SPACE=
+LINKEDIN_ID=
+LINKEDIN_PASSWORD=
+GOOGLE_ID=
+GOOGLE_PASSWORD=
+TWITTER_ID=
+TWITTER_PASSWORD=
+GITHUB_ID=
+GITHUB_PASSWORD=
+FACEBOOK_ID=
+FACEBOOK_PASSWORD=
+EOF
 $ docker run --rm --env-file .env p:latest
 ```
