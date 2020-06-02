@@ -47,3 +47,9 @@ FACEBOOK_PASSWORD=
 EOF
 $ docker run --rm --env-file .env p:latest
 ```
+
+# TODO
+* アカウントパスワードのKeepass管理 (Dropbox Sync)
+* Contentful init script (create workspace, model)
+* テストコード (Unit, E2E)
+* Contentful -> Webfook -> Cloud Run (docker)
